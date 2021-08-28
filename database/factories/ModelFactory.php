@@ -1,5 +1,9 @@
 <?php
-
+use App\Models\User;
+use App\Models\Product;
+use Illuminate\Support\Str;
+use Faker\Generator as Faker;
+use Illluminate\Support\Facades\Hash;
 /*
 |--------------------------------------------------------------------------
 | Model Factories
@@ -11,16 +15,17 @@
 |
 */
 
-$factory->define(App\User::class, function (Faker\Generator $faker) {
+$factory->define(\App\User::class, function (Faker\Generator $faker) {
     return [
-        'name' => $faker->name,
-        'email' => $faker->email,
+        'name' => $this->faker->name,
+        'password' => Hash::make('123456'),
+        'email' => $this->faker->email,
     ];
 });
-$factory->define(App\Product::class, function (Faker\Generator $faker) {
+$factory->define(\App\Product::class, function (Faker\Generator $faker) {
     return [
-        'name' => $faker->name,
+        'name' => $this->faker->name,
         'price' => rand(0, 300),
-        'description'=>$faker->text,
+        'description'=>$this->faker->text,
     ];
 });

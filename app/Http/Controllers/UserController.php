@@ -36,7 +36,7 @@ class UserController extends Controller
 
        return response()->json($User);
      }
-     public function autenticate(Request $request){
+     public function authenticate(Request $request){
          $User = new User;
          $token = $request->bearerToken();
      }

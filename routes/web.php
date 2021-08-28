@@ -22,4 +22,7 @@ $router->group(['prefix'=>'api/v1'], function () use ($router) {
     $router->get('/product/{id}', 'ProductController@show');
     $router->put('/product/{id}', 'ProductController@update');
     $router->delete('/product/{id}','ProductController@destroy');
+
+    $router->post('/authenticate', 'ProductController@create');
 });
+$router->get('/indetity', 'IdentityController@signin');
