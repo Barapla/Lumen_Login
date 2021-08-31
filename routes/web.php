@@ -15,7 +15,14 @@
 $router->get('/', function () use ($router) {
     return $router->app->version();
 });
-
+$router->group(['prefix'=>'example'], function () use ($router){
+    $router->get('/','ExampleController@index');
+    $router->get('/{id}','ExampleController@show');
+    $router->post('/','ExampleController@store');
+    $router->put('/{id}','ExampleController@update');
+    $router->delete('/{id}','ExampleController@destroy');
+}
+);
 $router->group(['prefix'=>'api/v1'], function () use ($router) {
     $router->get('/products', 'ProductController@index');
     $router->post('/product', 'ProductController@create');
@@ -25,4 +32,5 @@ $router->group(['prefix'=>'api/v1'], function () use ($router) {
 
     $router->post('/authenticate', 'ProductController@create');
 });
-$router->get('/indetity', 'IdentityController@signin');
+$router->post('/indetity/signin', 'IdentityController@signin');
+
