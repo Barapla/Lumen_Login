@@ -32,6 +32,6 @@ class IdentityController extends Controller
 
     public function test() 
     {
-        return Auth::user();
+        return Auth::user()->roles;
     }
 }

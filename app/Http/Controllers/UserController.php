@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\Hash;
 use Crypt;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -19,8 +20,7 @@ class UserController extends Controller
      
      $User= User::all();
 
-     return response()->json($user
-    );
+     return response()->json($User);
 
     }
 
@@ -30,7 +30,7 @@ class UserController extends Controller
 
        $User->name= $request->name;
        $User->email = $request->email;
-       $User->password= $request->password;
+       $User->password= Hash::make($request->password);
        
        $User->save();
 

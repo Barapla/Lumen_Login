@@ -1,7 +1,7 @@
 <?php
 namespace App\Repositories;
 
-use App\User;
+use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Hash;
@@ -24,7 +24,7 @@ class IdentityRepository implements IIdentityRepository
                 $entry->save();
 
                 return [
-                    'access_token' => $entry->api_token,
+                    'auth_token' => $entry->api_token,
                     'expiration' => $entry->api_token_expiration,
                     'user' => [
                         'id' => $entry->id,
@@ -35,6 +35,6 @@ class IdentityRepository implements IIdentityRepository
             }
         }
 
-        throw new AccessDeniedException('Acceso denegado');
+        throw new AccessDeniedException(Hash::check($password, $entry->password));
     }
 }

@@ -25,6 +25,20 @@ class CreateUsersTable extends Migration
 
             $table->timestamps();
         });
+        Schema::create('roles', function (Blueprint $table) {
+            $table->id();
+            $table->string("name",20);
+            $table->timestamps();
+        });
+        Schema::create('users_roles', function (Blueprint $table) {
+            $table->id();
+            $table->unsignedBigInteger('user_id');
+            $table->foreign('user_id')->references('id')->on('users');
+
+            $table->unsignedBigInteger('role_id');
+            $table->foreign('role_id')->references('id')->on('roles');
+            $table->timestamps();
+        });
     }
 
     /**
@@ -34,6 +48,10 @@ class CreateUsersTable extends Migration
      */
     public function down()
     {
+        Schema::disableForeignKeyConstraints();
         Schema::dropIfExists('users');
+        Schema::dropIfExists('roles');
+        Schema::dropIfExists('user_roles');
+        Schema::enableForeignKeyConstraints();
     }
 }

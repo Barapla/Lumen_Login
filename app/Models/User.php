@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\Role;
 use Illuminate\Auth\Authenticatable;
 use Illuminate\Contracts\Auth\Access\Authorizable as AuthorizableContract;
 use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
@@ -12,6 +13,11 @@ use Laravel\Lumen\Auth\Authorizable;
 class User extends Model implements AuthenticatableContract, AuthorizableContract
 {
     use Authenticatable, Authorizable, HasFactory;
+
+    public function roles()
+    {
+        return $this->belongsToMany(Role::class,'users_roles');
+    }
 
     /**
      * The attributes that are mass assignable.

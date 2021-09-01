@@ -23,14 +23,17 @@ $router->group(['prefix'=>'example'], function () use ($router){
     $router->delete('/{id}','ExampleController@destroy');
 }
 );
-$router->group(['prefix'=>'api/v1'], function () use ($router) {
+$router->group(['middleware'=> 'auth', 'prefix'=>'api/v1'], function () use ($router) {
     $router->get('/products', 'ProductController@index');
     $router->post('/product', 'ProductController@create');
     $router->get('/product/{id}', 'ProductController@show');
     $router->put('/product/{id}', 'ProductController@update');
     $router->delete('/product/{id}','ProductController@destroy');
+    $router->get('/Users', 'UserController@index');
 
-    $router->post('/authenticate', 'ProductController@create');
 });
-$router->post('/indetity/signin', 'IdentityController@signin');
-
+$router->group([ 'prefix'=>'api/v1'], function () use ($router) {
+    $router->post('/signin', 'IdentityController@signin');
+    $router->get('/test', 'IdentityController@test');
+    $router->post('/User', 'UserController@create');
+});
